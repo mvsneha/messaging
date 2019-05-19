@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Iframe</title>
+    <script>
+         window.addEventListener('DOMContentLoaded', () => {
+           window.addEventListener('message', event => {
+             document.querySelector('p').innerHTML = `Message from main file: ${event.data}`
+             event.ports[0].postMessage(' Hey ');
+             event.ports[0].close();
+           });
+         })
+    </script>
+</head>
+<body>
+<p></p>
+</body>
+</html>

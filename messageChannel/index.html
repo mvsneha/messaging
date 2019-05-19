@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Messaging API</title>
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+
+        const channel = new MessageChannel();
+        const display = document.querySelector('p');
+        const iframe = document.querySelector('iframe');
+
+        iframe.addEventListener('load', () => {
+          iframe.contentWindow.postMessage('Hello', '*', [channel.port2]);
+        });
+
+        channel.port1.onmessage = event => {
+          display.innerHTML = `Reply from iframe: ${event.data}`
+        }
+      });
+    </script>
+</head>
+<body>
+<p></p>
+<iframe src="iframe.html">
+
+</iframe>
+
+</body>
+</html>
