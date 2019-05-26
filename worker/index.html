@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Messaging API</title>
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const worker = new Worker('worker.js');
+
+        worker.postMessage('Hey!');
+        worker.onmessage = event => {
+          console.log(event.data);
+          document.querySelector('p').innerHTML =`Message back from web worker ${event.data}`;
+        }
+
+        const messageChannel = new MessageChannel();
+        messageChannel.port1.onmessage = event => {
+          document.querySelector('p').innerHTML = `Message back from web worker ${event.data}`;
+        }
+
+        worker.postMessage('Hello second way', [messageChannel.port2])
+
+      });
+    </script>
+</head>
+<body>
+<p></p>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Iframe</title>
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+
+        const channel = new BroadcastChannel('common');
+        setInterval(() => {
+          channel.postMessage('Hi from iframe3 <br>')
+        }, 5000);
+
+        channel.onmessage = event => {
+          document.querySelector('p').innerHTML = `${event.data}` + document.querySelector('p').innerHTML;
+        }
+
+      });
+    </script>
+</head>
+<body>
+<p></p>
+</body>
+</html>
