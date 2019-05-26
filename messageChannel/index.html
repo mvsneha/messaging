@@ -10,13 +10,32 @@
         const display = document.querySelector('p');
         const iframe = document.querySelector('iframe');
 
+        const data = {name : 'Flavio'};
+
         iframe.addEventListener('load', () => {
           iframe.contentWindow.postMessage('Hello', '*', [channel.port2]);
+          //  setTimeout(() => {
+          //   iframe.contentWindow.postMessage(data, '*', [channel.port2]);
+          //  }, 1000); 
         });
 
+        
         channel.port1.onmessage = event => {
           display.innerHTML = `Reply from iframe: ${event.data}`
         }
+
+        window.postMessage(data, [channel.port2]);
+
+
+        self.addEventListener('message', event => {
+          console.log(event);
+          console.log(event.data);
+          console.log('A new message arrived!');
+
+          const data = {someData: 'hey'};
+          //event.currentTarget.postMessage(data);
+          //event.close();
+        })
       });
     </script>
 </head>

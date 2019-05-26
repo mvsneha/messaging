@@ -6,6 +6,7 @@
     <script>
          window.addEventListener('DOMContentLoaded', () => {
            window.addEventListener('message', event => {
+             console.log(event.data);
              document.querySelector('p').innerHTML = `Message from main file: ${event.data}`
              event.ports[0].postMessage(' Hey ');
              event.ports[0].close();
